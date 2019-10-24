@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccumulatorDemoService {
-  private static Logger LOGGER = LoggerFactory.getLogger(AccumulatorDemoService.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AccumulatorDemoService.class);
 
   @Autowired JavaSparkContext sc;
 

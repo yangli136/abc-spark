@@ -20,29 +20,29 @@ public class MapPartitionsWithIndexDemoService {
     final String fullPath = FileUtils.getFullFilePath(fileName);
     JavaRDD<String> lines = sc.textFile(fullPath);
 
-    JavaRDD<List<String>> allWordList =
+    JavaRDD<List<String>> wordList =
         lines.map(
             s -> {
-              List<String> innerwordList = new ArrayList<>();
+              List<String> tempWordList = new ArrayList<>();
               try (Scanner scanner = new Scanner(s)) {
                 while (scanner.hasNext()) {
-                  innerwordList.add(scanner.next());
+                  tempWordList.add(scanner.next());
                 }
               }
-              return innerwordList;
+              return tempWordList;
             });
 
-    JavaRDD<List<String>> allWordListPartiioned = allWordList.repartition(8);
+    JavaRDD<List<String>> allWordListPartiioned = wordList.repartition(8);
 
     JavaRDD<Map<Integer, List<Integer>>> results =
         allWordListPartiioned.mapPartitionsWithIndex(
             (index, s) -> {
               List<Map<Integer, List<Integer>>> indexWordListMapList = new ArrayList<>();
               while (s.hasNext()) {
-                List<String> innderWordList = s.next();
+                List<String> tempWordList = s.next();
                 List<Integer> indexList = new ArrayList<>();
                 Map<Integer, List<Integer>> indexWordListMap = new HashMap<>();
-                innderWordList.forEach(w -> indexList.add(w.length()));
+                tempWordList.forEach(w -> indexList.add(w.length()));
                 indexWordListMap.put(index, indexList);
                 indexWordListMapList.add(indexWordListMap);
               }
@@ -61,9 +61,6 @@ public class MapPartitionsWithIndexDemoService {
     //
     //			return intList.iterator();
     //		});
-    List<Map<Integer, List<Integer>>> finalResult = results.collect();
-
-    //		List<List<String>> finalResult = allWordList.collect();
-    return finalResult;
+    return results.collect();
   }
 }

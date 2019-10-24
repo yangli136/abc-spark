@@ -13,8 +13,7 @@ public class TupleDemoController {
   @Autowired TupleDemoService service;
 
   @GetMapping(path = "/tuple")
-  public int count() {
-    service.getCount("tuple.txt");
-    return 0;
+  public String count() {
+    return service.getWordCountResult("tuple.txt");
   }
 }
