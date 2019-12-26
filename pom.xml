@@ -16,7 +16,7 @@
     <hadoop-hdfs.version>3.2.1</hadoop-hdfs.version>
     <spark-core_2.12.version>2.4.3</spark-core_2.12.version>
     <start-class>org.abcframework.spark.boot.SparkApplication</start-class>
-    <tomcat-embed-core.version>9.0.26</tomcat-embed-core.version>
+    <tomcat-embed-core.version>9.0.30</tomcat-embed-core.version>
   </properties>
   <dependencies>
     <dependency>
